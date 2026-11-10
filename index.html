@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paperview Productions | Camera Work, Social Media and Marketing</title>
+  <meta name="description" content="Paperview Productions shoots the content, runs the social media and builds the marketing for blue collar businesses, white collar firms and combat sports. $150,000+ in new business for one client in 3 months. 75 million views for one event in under a week." />
+  <link rel="icon" type="image/png" href="assets/logo/Paperview-Productions-icon-gold.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<!-- Autofocus reticle that trails the pointer (desktop only) -->
+<div class="reticle" id="reticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top" aria-label="Paperview Productions home">
+    <img src="assets/logo/Paperview-Productions-Logo-hz-gold.png" alt="Paperview Productions" />
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Sections">
+    <a href="#results">Results</a>
+    <a href="#services">What We Do</a>
+    <a href="#industries">Industries</a>
+    <a href="#proof">Proof</a>
+    <a href="#contact" class="btn btn--gold btn--sm">Start a project</a>
+  </nav>
+  <div class="nav__tc" aria-hidden="true"><span class="rec"></span><span id="timecode">00:00:00:00</span></div>
+  <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+
+<main id="top">
+
+<!-- ============================ HERO: THE CAMERA ============================ -->
+<section class="hero" id="hero">
+  <div class="hero__grid">
+    <div class="hero__head">
+      <p class="eyebrow">Camera work · Social media · Marketing</p>
+      <h1 class="hero__title">Content that brings in <em>paying work.</em></h1>
+    </div>
+    <div class="hero__rest">
+      <p class="hero__lede">
+        We are the camera crew, the social media team and the marketing shop in one.
+        We work with blue collar businesses, white collar firms and combat sports.
+      </p>
+      <ul class="hero__proof">
+        <li><b>$150,000+</b><span>in new business for Marotte Industrial within 3 months</span></li>
+        <li><b>75M views</b><span>for Duel Arena in under a week</span></li>
+      </ul>
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--gold">Start a project</a>
+        <a href="#results" class="btn btn--line">See the results</a>
+      </div>
+      <p class="hero__hint"><span class="key">Turn the dial</span><span class="key">Pick a format</span><span class="key">Press the shutter</span></p>
+    </div>
+
+    <div class="hero__cam">
+      <div class="cam" id="cam" tabindex="0" aria-label="Interactive camera. Use the mode list to choose an industry, the format buttons to choose a content format, and the shutter to take the shot.">
+        <div class="cam__hump"><span class="cam__evf"></span></div>
+        <div class="cam__top">
+          <div class="cam__model"><span class="cam__lamp" id="camLamp"></span>PVP&nbsp;·&nbsp;7S</div>
+          <div class="cam__brand">PAPERVIEW</div>
+          <button class="cam__shutter" id="shutter" aria-label="Take the shot"><span></span></button>
+        </div>
+
+        <div class="cam__body">
+          <div class="lcd" id="lcd">
+            <div class="lcd__bg" id="lcdBg"></div>
+            <div class="lcd__frame" id="lcdFrame"></div>
+
+            <div class="lcd__hud" aria-hidden="true">
+              <div class="hud hud--tl"><span class="hud__rec" id="hudRec">STBY</span><span id="hudClock">00:00:00</span></div>
+              <div class="hud hud--tr"><span id="hudFmt">3:2</span><span class="hud__batt"><i></i></span></div>
+              <div class="hud hud--bl">
+                <b id="hudClient">Client</b>
+                <span id="hudWhat">What it is</span>
+              </div>
+              <div class="hud hud--br" id="hudWhere">Where it goes</div>
+              <div class="hud hud--bar"><span id="hudSS">1/500</span><span id="hudAp">f/2.8</span><span id="hudIso">ISO 400</span><span class="hud__meter"><i id="hudNeedle"></i></span></div>
+              <div class="af" id="af"><i></i><i></i><i></i><i></i></div>
+              <div class="lcd__thirds"></div>
+            </div>
+            <div class="lcd__blades" id="blades"><i></i><i></i></div>
+            <div class="lcd__flash" id="flash"></div>
+          </div>
+
+          <div class="cam__ctl">
+            <div class="ctl">
+              <p class="ctl__label">Mode</p>
+              <div class="mode">
+                <div class="mode__list" id="modeList" role="tablist" aria-label="Industry"></div>
+                <div class="mode__knob" id="knob" aria-hidden="true"><span></span></div>
+              </div>
+            </div>
+            <div class="ctl">
+              <p class="ctl__label">Format</p>
+              <div class="fmt" id="fmtList" role="tablist" aria-label="Content format"></div>
+            </div>
+            <div class="ctl ctl--row">
+              <button class="pad" id="prev" aria-label="Previous">&#9664;</button>
+              <span class="ctl__count"><b id="shotCount">000</b> shots</span>
+              <button class="pad" id="next" aria-label="Next">&#9654;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roll" id="roll" aria-live="polite">
+        <div class="roll__strip" id="rollStrip"></div>
+        <p class="roll__note" id="rollNote">Press the gold shutter to put a frame on the roll.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ RESULTS ============================ -->
+<section class="sec" id="results">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Results</p>
+      <h2 class="sec__title">This is marketing. <em>Not just video.</em></h2>
+      <p class="sec__lede">Good footage is where it starts. What counts is what comes back: calls, booked jobs, ticket sales and views that turn into money. Here are two examples.</p>
+    </header>
+
+    <div class="cases">
+      <!-- Marotte -->
+      <article class="case reveal" data-case="marotte">
+        <div class="case__media">
+          <div class="case__view" id="caseMarotte"></div>
+          <div class="case__tabs" role="tablist">
+            <button class="chip is-on" data-kind="img" data-src="assets/img/bc-mi-demo-excavator.webp">On-site shoots</button>
+            <button class="chip" data-kind="img" data-src="assets/carousel/marotte-1.webp" data-fit="contain">Carousels</button>
+            <button class="chip" data-kind="vid" data-src="assets/vid/reel-marotte.mp4" data-poster="assets/vid/reel-marotte.webp" data-fit="contain">Reels</button>
+          </div>
+        </div>
+        <div class="case__body">
+          <p class="case__tag">Blue collar · Marotte Industrial</p>
+          <p class="case__num"><span class="count" data-to="150000" data-prefix="$" data-suffix="+">$150,000+</span></p>
+          <p class="case__line">in new business within 3 months of working with us.</p>
+          <p class="case__how">We shot on their job sites, turned the footage into carousels and reels, and ran their social media. The phone started ringing with real jobs.</p>
+        </div>
+      </article>
+
+      <!-- Duel Arena -->
+      <article class="case reveal" data-case="duel">
+        <div class="case__media">
+          <div class="case__view" id="caseDuel"></div>
+          <div class="case__tabs" role="tablist">
+            <button class="chip is-on" data-kind="vid" data-src="assets/vid/wide-duel.mp4" data-poster="assets/vid/wide-duel.webp">The arena</button>
+            <button class="chip" data-kind="img" data-src="assets/img/ev-duel-presser.webp">Press conference</button>
+            <button class="chip" data-kind="vid" data-src="assets/vid/reel-duel.mp4" data-poster="assets/vid/reel-duel.webp" data-fit="contain">Fight week reels</button>
+          </div>
+        </div>
+        <div class="case__body">
+          <p class="case__tag">Live events · Duel Arena, Orlando</p>
+          <p class="case__num"><span class="count" data-to="75" data-suffix="M">75M</span><small>views</small></p>
+          <p class="case__line">in less than a week.</p>
+          <p class="case__how">Press conference, weigh-ins, arrivals and fight night, cut and posted while people were still talking about it. Big events need big numbers and we can bring them.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHAT WE DO ============================ -->
+<section class="sec sec--alt" id="services">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">What we do</p>
+      <h2 class="sec__title">Three jobs. <em>One team.</em></h2>
+      <p class="sec__lede">Most businesses hire a videographer, then a social media person, then a marketer, and hope they talk to each other. We do all three, so every shoot has a plan and every post has a job.</p>
+    </header>
+
+    <div class="svc reveal" id="svc">
+      <div class="svc__ring" role="tablist" aria-label="Services">
+        <button class="svc__tab is-on" data-i="0" role="tab"><span>01</span>Camera work</button>
+        <button class="svc__tab" data-i="1" role="tab"><span>02</span>Social media management</button>
+        <button class="svc__tab" data-i="2" role="tab"><span>03</span>Marketing</button>
+      </div>
+      <div class="svc__panel" id="svcPanel"></div>
+    </div>
+
+    <div class="flow reveal" id="flow" aria-label="How a shoot becomes revenue">
+      <button class="flow__step is-on" data-i="0"><b>Shoot</b><span>On your job site, in your gym or cageside</span></button>
+      <button class="flow__step" data-i="1"><b>Edit</b><span>Reels, carousels, photos and commercials</span></button>
+      <button class="flow__step" data-i="2"><b>Post</b><span>We run the pages and the schedule</span></button>
+      <button class="flow__step" data-i="3"><b>Get paid</b><span>Calls, bookings and ticket sales</span></button>
+      <i class="flow__beam" id="flowBeam"></i>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ INDUSTRIES ============================ -->
+<section class="sec" id="industries">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Who we work with</p>
+      <h2 class="sec__title">Pick your <em>industry.</em></h2>
+      <p class="sec__lede">The work changes with the business. A fight promotion needs views this week. A contractor needs the phone to ring. An office needs to look like the best in town.</p>
+    </header>
+    <div class="indnav reveal" id="indNav" role="tablist" aria-label="Industry">
+      <button class="indnav__b is-on" data-ind="combat">Combat sports</button>
+      <button class="indnav__b" data-ind="blue">Blue collar</button>
+      <button class="indnav__b" data-ind="white">White collar</button>
+    </div>
+  </div>
+
+  <div class="ind" id="indStage"></div>
+</section>
+
+<!-- ============================ PROOF ============================ -->
+<section class="sec sec--alt" id="proof">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Proof</p>
+      <h2 class="sec__title">The people we shoot <em>say it better.</em></h2>
+    </header>
+    <div class="proof" id="proofGrid"></div>
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="sec" id="contact">
+  <div class="wrap contact">
+    <div class="contact__copy reveal">
+      <p class="eyebrow">Start a project</p>
+      <h2 class="sec__title">Tell us what you want <em>more of.</em></h2>
+      <p class="sec__lede">More calls, more members, more ticket sales, more views. Tell us about the business and we will come back with a plan and a price.</p>
+      <ul class="contact__lines">
+        <li><span>Call or text</span><a href="tel:+19789186755">(978) 918-6755</a></li>
+        <li><span>Email</span><a href="mailto:conor.hews@gmail.com">conor.hews@gmail.com</a></li>
+        <li><span>Instagram</span><a href="https://instagram.com/Paperviewproductions" target="_blank" rel="noreferrer">@Paperviewproductions</a></li>
+        <li><span>Based in</span><b>Haverhill, MA. We travel for events.</b></li>
+      </ul>
+      <a class="contact__px" href="https://paperviewproductions.pixieset.com" target="_blank" rel="noreferrer">Looking for your event photos? Find them here &rarr;</a>
+    </div>
+
+    <form class="form reveal" id="form" novalidate>
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" />
+      <div class="form__row">
+        <label>Name<input name="name" required autocomplete="name" /></label>
+        <label>Business<input name="business" autocomplete="organization" /></label>
+      </div>
+      <div class="form__row">
+        <label>Email<input name="email" type="email" required autocomplete="email" /></label>
+        <label>Phone<input name="phone" type="tel" autocomplete="tel" /></label>
+      </div>
+      <fieldset class="form__pick">
+        <legend>What kind of business?</legend>
+        <label><input type="radio" name="industry" value="Blue collar" /><span>Blue collar</span></label>
+        <label><input type="radio" name="industry" value="White collar" /><span>White collar</span></label>
+        <label><input type="radio" name="industry" value="Combat sports" /><span>Combat sports</span></label>
+        <label><input type="radio" name="industry" value="Live event" /><span>Live event</span></label>
+        <label><input type="radio" name="industry" value="Something else" /><span>Something else</span></label>
+      </fieldset>
+      <label>What do you want more of?<textarea name="message" rows="4" required placeholder="Tell us about the business and what a win looks like."></textarea></label>
+      <p class="form__err" id="formErr" hidden></p>
+      <button class="btn btn--gold form__send" id="formSend" type="submit">Send it</button>
+    </form>
+    <div class="form form--done" id="formDone" hidden>
+      <div class="form__ok">&#10003;</div>
+      <h3>Got it.</h3>
+      <p>We will be in touch within one business day. In a hurry? Call or text (978) 918-6755.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <img src="assets/logo/Paperview-Productions-Logo-hz-gold.png" alt="Paperview Productions" />
+    <p>Camera work, social media management and marketing. Haverhill, MA.</p>
+    <p class="foot__c">&copy; <span id="yr"></span> Paperview Productions</p>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" hidden>
+  <button class="lb__x" id="lbX" aria-label="Close">&times;</button>
+  <button class="lb__nav lb__nav--p" id="lbP" aria-label="Previous">&#9664;</button>
+  <figure class="lb__fig"><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb__nav lb__nav--n" id="lbN" aria-label="Next">&#9654;</button>
+</div>
+
+<script src="js/site.js" defer></script>
+</body>
+</html>
