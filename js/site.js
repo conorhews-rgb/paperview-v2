@@ -236,6 +236,7 @@
     $$('.mode__b', modeList).forEach((b, i) => { b.classList.toggle('is-on', i === mode); b.setAttribute('aria-selected', i === mode); });
     $$('.fmt__b', fmtList).forEach((b, i) => { b.classList.toggle('is-on', i === fmt); b.setAttribute('aria-selected', i === fmt); });
     knob.style.transform = `rotate(${KNOB_ANGLES[mode]}deg)`;
+    window.dispatchEvent(new CustomEvent('pv:render', { detail: { thumb: thumbOf(it) } }));
   }
   function tickClock() {
     const s = String(clockSec % 60).padStart(2, '0'), mm = String(Math.floor(clockSec / 60)).padStart(2, '0');
@@ -288,16 +289,7 @@
   lcd.addEventListener('pointerleave', () => { af.style.left = '50%'; af.style.top = '50%'; af.classList.add('locked'); frame.style.setProperty('--px', '0'); frame.style.setProperty('--py', '0'); });
   lcd.addEventListener('click', (e) => { if (!e.target.closest('.car__arrow')) { took(); shoot(); } });
 
-  // slight tilt of the whole body toward the pointer
-  if (finePointer && !reduce) {
-    const host = $('.hero__cam');
-    host.addEventListener('pointermove', (e) => {
-      const r = host.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-      cam.style.transform = `perspective(1600px) rotateY(${x * 5}deg) rotateX(${-y * 4}deg)`;
-    });
-    host.addEventListener('pointerleave', () => { cam.style.transform = ''; });
-  }
+  // the 3D body, its rotation and the lens live in fx.js
 
   // the shutter
   const rollStrip = $('#rollStrip');
@@ -313,6 +305,7 @@
       const cell = rollStrip.children[shots % 6];
       cell.innerHTML = `<img src="${thumbOf(it)}" alt=""><span>${MODES[mode].label.split(' ')[0]} · ${FORMATS[fmt].label}</span>`;
       shots++;
+      window.dispatchEvent(new CustomEvent('pv:shoot', { detail: { src: thumbOf(it), cell } }));
       $('#shotCount').textContent = String(shots).padStart(3, '0');
       $('#rollNote').innerHTML = shots < 3
         ? `${shots} on the roll. Try another mode or format.`
@@ -409,8 +402,13 @@
       </div>`;
     wireRail($('.strip__rail', indStage));
     wireTilt($$('.face', indStage));
+    window.dispatchEvent(new CustomEvent('pv:ind'));
   }
-  indBtns.forEach((b) => b.addEventListener('click', () => showInd(b.dataset.ind)));
+  // fx.js wraps the swap in an iris wipe when it is loaded
+  indBtns.forEach((b) => b.addEventListener('click', () => {
+    if (b.classList.contains('is-on')) return;
+    if (window.pvSwapInd) window.pvSwapInd(() => showInd(b.dataset.ind)); else showInd(b.dataset.ind);
+  }));
 
   function wireRail(rail) {
     let down = false, moved = 0, sx = 0, sl = 0;

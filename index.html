@@ -10,8 +10,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/site.css" />
+  <link rel="stylesheet" href="css/fx.css" />
+  <script>
+    // mark the page as scripted so the entrance states apply, with a safety net if anything stalls
+    document.documentElement.classList.add('js');
+    setTimeout(function () { document.documentElement.classList.add('is-live'); }, 4500);
+  </script>
+  <noscript><style>.boot { display: none !important; }</style></noscript>
 </head>
 <body>
+
+<!-- Live bokeh behind the whole page -->
+<canvas class="gl" id="gl" aria-hidden="true"></canvas>
+
+<!-- Boot sequence: the iris opens onto the page -->
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="iris" id="bootIris"></div>
+  <div class="boot__hud">
+    <span class="boot__tag">PVP &middot; 7S</span>
+    <b class="boot__n" id="bootN">000</b>
+    <span class="boot__msg" id="bootMsg">Powering on</span>
+  </div>
+</div>
+
+<!-- Viewfinder frame around the page (desktop) -->
+<div class="vf" id="vf" aria-hidden="true">
+  <i class="vf__c vf__c--tl"></i><i class="vf__c vf__c--tr"></i><i class="vf__c vf__c--bl"></i><i class="vf__c vf__c--br"></i>
+  <div class="vf__sec"><b id="vfNum">00</b><span id="vfName">Camera</span></div>
+  <div class="vf__exp" id="vfExp">1/1000 &nbsp; f/2.8 &nbsp; ISO 3200</div>
+  <div class="vf__scale" id="vfScale"><i class="vf__dot" id="vfDot"></i></div>
+</div>
 
 <!-- Autofocus reticle that trails the pointer (desktop only) -->
 <div class="reticle" id="reticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -29,6 +57,7 @@
     <a href="#contact" class="btn btn--gold btn--sm">Start a project</a>
   </nav>
   <div class="nav__tc" aria-hidden="true"><span class="rec"></span><span id="timecode">00:00:00:00</span></div>
+  <button class="nav__snd" id="snd" aria-pressed="true" aria-label="Camera sounds on"><i></i><i></i><i></i><i></i></button>
   <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 
@@ -36,6 +65,7 @@
 
 <!-- ============================ HERO: THE CAMERA ============================ -->
 <section class="hero" id="hero">
+ <div class="hero__pin" id="heroPin">
   <div class="hero__grid">
     <div class="hero__head">
       <p class="eyebrow">Camera work · Social media · Marketing</p>
@@ -54,10 +84,12 @@
         <a href="#contact" class="btn btn--gold">Start a project</a>
         <a href="#results" class="btn btn--line">See the results</a>
       </div>
-      <p class="hero__hint"><span class="key">Turn the dial</span><span class="key">Pick a format</span><span class="key">Press the shutter</span></p>
     </div>
 
     <div class="hero__cam">
+     <div class="rig" id="rig" data-cursor="Drag to spin">
+      <div class="rig__floor" id="rigFloor"></div>
+      <div class="rig__spin" id="spin">
       <div class="cam" id="cam" tabindex="0" aria-label="Interactive camera. Use the mode list to choose an industry, the format buttons to choose a content format, and the shutter to take the shot.">
         <div class="cam__hump"><span class="cam__evf"></span></div>
         <div class="cam__top">
@@ -83,6 +115,7 @@
               <div class="af" id="af"><i></i><i></i><i></i><i></i></div>
               <div class="lcd__thirds"></div>
             </div>
+            <div class="lcd__glare" id="lcdGlare"></div>
             <div class="lcd__blades" id="blades"><i></i><i></i></div>
             <div class="lcd__flash" id="flash"></div>
           </div>
@@ -107,13 +140,28 @@
           </div>
         </div>
       </div>
+      </div><!-- /spin -->
+     </div><!-- /rig -->
 
+     <div class="hero__extras" id="heroExtras">
+      <div class="rigbar">
+        <button class="rigbar__flip" id="flip" type="button"><i></i><span id="flipLabel">See the lens</span></button>
+        <span class="key">Drag to spin</span><span class="key">Turn the dial</span><span class="key">Pick a format</span><span class="key">Press the shutter</span>
+      </div>
       <div class="roll" id="roll" aria-live="polite">
         <div class="roll__strip" id="rollStrip"></div>
         <p class="roll__note" id="rollNote">Press the gold shutter to put a frame on the roll.</p>
       </div>
+     </div>
     </div>
   </div>
+
+  <!-- scroll takes you through the lens into the results -->
+  <div class="dive" id="dive" aria-hidden="true">
+    <div class="dive__say" id="diveSay"><span>Through the lens</span><b>Here is what comes back.</b></div>
+  </div>
+  <div class="hero__scroll" id="heroScroll" aria-hidden="true"><i></i>Scroll to go through the lens</div>
+ </div><!-- /pin -->
 </section>
 
 <!-- ============================ RESULTS ============================ -->
@@ -139,6 +187,7 @@
         <div class="case__body">
           <p class="case__tag">Blue collar · Marotte Industrial</p>
           <p class="case__num"><span class="count" data-to="150000" data-prefix="$" data-suffix="+">$150,000+</span></p>
+          <div class="meter" aria-hidden="true"><div class="meter__bar"><i></i></div><div class="meter__ticks"><span>Day 1</span><span>Month 1</span><span>Month 2</span><span>Month 3</span></div></div>
           <p class="case__line">in new business within 3 months of working with us.</p>
           <p class="case__how">We shot on their job sites, turned the footage into carousels and reels, and ran their social media. The phone started ringing with real jobs.</p>
         </div>
@@ -157,6 +206,7 @@
         <div class="case__body">
           <p class="case__tag">Live events · Duel Arena, Orlando</p>
           <p class="case__num"><span class="count" data-to="75" data-suffix="M">75M</span><small>views</small></p>
+          <div class="meter meter--week" aria-hidden="true"><div class="meter__bar"><i></i></div><div class="meter__ticks"><span>Day 1</span><span>Day 7</span></div></div>
           <p class="case__line">in less than a week.</p>
           <p class="case__how">Press conference, weigh-ins, arrivals and fight night, cut and posted while people were still talking about it. Big events need big numbers and we can bring them.</p>
         </div>
@@ -271,6 +321,7 @@
 </main>
 
 <footer class="foot">
+  <div class="foot__mark" id="footMark" aria-hidden="true"><span>PAPERVIEW</span><span class="foot__fill">PAPERVIEW</span></div>
   <div class="wrap foot__in">
     <img src="assets/logo/Paperview-Productions-Logo-hz-gold.png" alt="Paperview Productions" />
     <p>Camera work, social media management and marketing. Haverhill, MA.</p>
@@ -287,5 +338,6 @@
 </div>
 
 <script src="js/site.js" defer></script>
+<script src="js/fx.js" defer></script>
 </body>
 </html>
