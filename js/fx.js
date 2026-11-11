@@ -123,7 +123,8 @@
     const lxF = mobile ? 0.5 : 0.56;                          // lens position as seen from the front
     const lx = W * (1 - lxF), ly = H * (mobile ? 0.5 : 0.53);
     const N = mobile ? 26 : 40;
-    G = { W, H, D, R, L, offX: (lxF - 0.5) * W, offY: ly - H / 2 };
+    G = { W, H, D, R, L, lx, ly, offX: (lxF - 0.5) * W, offY: ly - H / 2 };
+    spin.style.setProperty('--lxb', lx + 'px');
     spin.style.setProperty('--R', R + 'px');
     spin.style.setProperty('--rad', rad + 'px');
     spin.style.setProperty('--lxf', (lxF * W) + 'px');
@@ -135,6 +136,9 @@
     cap('front', 0, 0, W, H, -D / 2, true,
       '<div class="front__mount"></div><span class="front__badge">7S</span><i class="front__lamp"></i><i class="front__rel"></i>' +
       '<span class="front__sub">PVP SERIES<br>HAVERHILL MA</span>');
+
+    // the sensor sits just behind the screen and only shows when the camera comes apart
+    parts.sensor = cap('sensor', 0, 0, W, H, D / 2 - 2, false, '<i class="sensor__ring"></i><i class="sensor__chip"></i>');
 
     // viewfinder hump and eyecup
     const hp = $('.cam__hump', cam), hw = hp.offsetWidth, hh = hp.offsetHeight, hy = hp.offsetTop + 1, hd = D * 0.84;
@@ -163,11 +167,12 @@
 
     // lens: barrel, hood, then glass elements stepping back to the iris
     const lens = group(spin, lx, ly, -D / 2, 'rotateY(180deg)');
+    parts.lensG = lens; S.ex = -1;
     cyl(lens, R * 0.86, 0, L * 0.08, N, 's3--chrome');
     cyl(lens, R * 0.93, L * 0.06, L * 0.78, N, 's3--barrel');
     cyl(lens, R, L * 0.8, L * 0.2, N, 's3--rim');
     cyl(lens, R * 0.9, L * 0.5, L * 0.5, Math.round(N * 0.6), 's3--inner', true);
-    disc(lens, R, L * 0.8, 'ld--back');
+    parts.lback = disc(lens, R, L * 0.8, 'ld--back');
     disc(lens, R * 0.92, L * 0.48, 'ld--hole');
     const iris = disc(lens, R * 0.5, L * 0.56, 'ld--iris', '<div class="iris"></div>');
     fillIris(iris.firstChild);
@@ -175,7 +180,7 @@
     disc(lens, R * 0.72, L * 0.78, 'ld--step2');
     parts.glass = disc(lens, R * 0.72, L * 0.86, 'ld--glass', '<div class="ld__sheen"></div>');
     disc(lens, R * 0.8, L * 0.94, 'ld--step1');
-    disc(lens, R, L, 'ld--front',
+    parts.lfront = disc(lens, R, L, 'ld--front',
       '<svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="pvLensRing" d="M100,100 m-87.5,0 a87.5,87.5 0 1,1 175,0 a87.5,87.5 0 1,1 -175,0"/></defs>' +
       '<text><textPath href="#pvLensRing" startOffset="2%"><tspan class="g">PAPERVIEW</tspan> &#160;&#183;&#160; 24-70mm 1:2.8 &#160;&#183;&#160; &#216;82 &#160;&#183;&#160; <tspan class="g">PVP G</tspan> &#160;&#183;&#160; HAVERHILL MA &#160;&#183;&#160; FULL FRAME &#160;&#183;</textPath></text></svg>');
     parts.iris = iris; parts.irisIn = iris.firstChild; parts.sheen = parts.glass.firstChild;
@@ -195,6 +200,7 @@
   const floor = $('#rigFloor'), glare = $('#lcdGlare'), dive = $('#dive'), say = $('#diveSay');
   const head = $('.hero__head'), rest = $('.hero__rest'), extras = $('#heroExtras'), hint = $('#heroScroll');
   const flipBtn = $('#flip'), flipLabel = $('#flipLabel');
+  const xp = $('#xp'), xpL = $$('.xp__l');
   let pinned = false, lastThumb = '', lastFrame = 0, heroH = 0;
 
   const mqPin = matchMedia('(min-width: 1181px) and (min-height: 660px)');
@@ -263,7 +269,11 @@
     let p = pinned ? clamp(y / Math.max(1, heroH - vh), 0, 1) : 0;
     S.p = snap ? p : S.p + (p - S.p) * Math.min(1, dt * 9);
     if (Math.abs(S.p - p) < 0.0004) S.p = p;
-    const P = S.p, a = smooth(0.1, 0.52, P), b = smooth(0.6, 1, P), auto = pinned ? smooth(0.03, 0.12, P) : 0;
+    const P = S.p, auto = pinned ? smooth(0.02, 0.08, P) : 0;
+    const c1 = smooth(0.04, 0.2, P);                              // centering and turning to the open pose
+    const ex = pinned ? smooth(0.1, 0.24, P) - smooth(0.42, 0.54, P) : 0;   // the camera comes apart, then back together
+    const a = smooth(0.44, 0.66, P);                              // turning on to face you
+    const b = smooth(0.72, 1, P);                                 // the dive
     const isAuto = auto > 0.02;
     if (isAuto !== S.auto) { S.auto = isAuto; rig.classList.toggle('is-auto', isAuto); if (isAuto && dg) endDrag(); }
 
@@ -285,18 +295,34 @@
     let ry = S.ry, rx = S.rx, s = 1, tx = 0, ty = 0;
     if (auto > 0) {
       // scroll turns the camera to face you, centers the lens and pushes in
-      const end = isFront() ? S.base : S.base + 180;
-      ry = lerp(S.ry, lerp(S.base, end, a), auto);
-      rx = lerp(S.rx, lerp(0, -1.5, a), auto);
+      const back = isFront() ? S.base - 180 : S.base;
+      ry = lerp(S.ry, lerp(lerp(back, back - 68, c1), back - 180, a), auto);
+      rx = lerp(S.rx, lerp(lerp(0, 9, c1), -1.5, a), auto);
       const r = rig.getBoundingClientRect();
       const dx = vw / 2 - (r.left + r.width / 2), dy = vh / 2 - (r.top + r.height / 2), oy = vh / 2 - (r.top + r.height * 0.46);
-      s = lerp(1, 0.94, a) * (1 + 3.3 * b * b);
-      tx = (dx - G.offX * s) * a; ty = (dy - G.offY * s) * a;
-      rig.style.perspectiveOrigin = `calc(50% + ${(dx * a).toFixed(1)}px) calc(46% + ${(oy * a).toFixed(1)}px)`;
+      s = lerp(lerp(1, 0.7, c1), 0.94, a) * (1 + 3.3 * b * b);
+      tx = dx * c1 - G.offX * s * a; ty = (dy + vh * 0.05 * (c1 - a)) * c1 - G.offY * s * a;
+      rig.style.perspectiveOrigin = `calc(50% + ${(dx * c1).toFixed(1)}px) calc(46% + ${(oy * c1).toFixed(1)}px)`;
       S.poWritten = true;
     } else if (S.poWritten) { rig.style.perspectiveOrigin = ''; S.poWritten = false; }
 
     spin.style.transform = `translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${s.toFixed(4)}) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+
+    // exploded view: the screen comes back, the lens goes forward, and each part gets its job named
+    if (parts.lensG && (Math.abs(ex - S.ex) > 0.002 || (ex === 0 && S.ex !== 0))) {
+      S.ex = ex;
+      cam.style.transform = `translateZ(${(G.D / 2 + ex * G.W * 0.44).toFixed(1)}px)`;
+      parts.lensG.style.transform = `translate3d(${G.lx.toFixed(1)}px,${G.ly.toFixed(1)}px,${(-G.D / 2 - ex * G.W * 0.4).toFixed(1)}px) rotateY(180deg)`;
+      if (xp) xp.style.opacity = smooth(0.55, 1, ex).toFixed(3);
+    }
+    if (xp && ex > 0.3) {
+      const pr = pin.getBoundingClientRect();
+      const put = (el, r, low) => { el.style.setProperty('--x', (r.left + r.width / 2 - pr.left).toFixed(1) + 'px'); el.style.setProperty('--y', ((low ? r.top + r.height + 10 : r.top - 10) - pr.top).toFixed(1) + 'px'); };
+      put(xpL[0], cam.getBoundingClientRect());
+      put(xpL[1], parts.sensor.getBoundingClientRect(), true);
+      const f = parts.lfront.getBoundingClientRect(), k = parts.lback.getBoundingClientRect();
+      put(xpL[2], { left: Math.min(f.left, k.left), width: Math.max(f.right, k.right) - Math.min(f.left, k.left), top: Math.min(f.top, k.top) });
+    }
 
     // light that moves with the turn
     if (Math.abs(ry - S.lastRy) > 0.08 || S.dirty) {
@@ -309,14 +335,14 @@
 
     if (!pinned) return;
     // copy and the strip under the camera get out of the way
-    const fade = 1 - smooth(0.04, 0.26, P);
+    const fade = 1 - smooth(0.015, 0.09, P);
     if (Math.abs(fade - S.fade) > 0.002 || (fade === 1 && S.fade !== 1)) {
       S.fade = fade;
       const st = fade === 1 ? '' : String(fade.toFixed(3));
       head.style.opacity = rest.style.opacity = extras.style.opacity = st;
       head.style.transform = rest.style.transform = fade === 1 ? '' : `translateX(${((fade - 1) * 90).toFixed(1)}px)`;
       extras.style.transform = fade === 1 ? '' : `translateY(${((1 - fade) * 40).toFixed(1)}px)`;
-      if (hint) hint.style.opacity = fade === 1 ? '' : st;
+      if (hint) { hint.style.transition = fade === 1 ? '' : 'none'; hint.style.opacity = fade === 1 ? '' : st; }
       [head, rest, extras].forEach((el) => { el.style.transition = fade === 1 ? '' : 'none'; el.style.filter = fade === 1 ? '' : 'none'; });
     }
     // the iris opens and the dark inside the lens swallows the frame
@@ -541,8 +567,10 @@
      ================================================================== */
   const SECS = [
     ['hero', '00', 'Camera', '1/1000   f/2.8   ISO 3200'], ['results', '01', 'Results', '1/500   f/4   ISO 200'],
-    ['services', '02', 'What we do', '1/250   f/2.8   ISO 400'], ['industries', '03', 'Industries', '1/1000   f/2   ISO 1600'],
-    ['proof', '04', 'Proof', '1/60   f/1.8   ISO 800'], ['contact', '05', 'Start a project', '1/125   f/5.6   ISO 100'],
+    ['services', '02', 'What we do', '1/250   f/2.8   ISO 400'], ['process', '03', 'How it works', '1/320   f/4   ISO 640'],
+    ['industries', '04', 'Industries', '1/1000   f/2   ISO 1600'], ['proof', '05', 'Proof', '1/60   f/1.8   ISO 800'],
+    ['about', '06', 'Who we are', '1/200   f/2   ISO 400'], ['faq', '07', 'Questions', '1/100   f/8   ISO 100'],
+    ['contact', '08', 'Start a project', '1/125   f/5.6   ISO 100'],
   ].map(([id, n, name, exp]) => ({ el: $('#' + id), id, n, name, exp })).filter((s) => s.el);
   const vfScale = $('#vfScale'), vfDot = $('#vfDot'), vfNum = $('#vfNum'), vfName = $('#vfName'), vfExp = $('#vfExp'), footMark = $('#footMark');
   let curSec = '';

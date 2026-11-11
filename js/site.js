@@ -62,19 +62,22 @@
     {
       h: 'We bring the cameras to where the work happens.',
       p: 'Job sites, gyms, offices and arenas. Photo and video that gets used, not filed away.',
-      li: ['Reels and short video', 'Commercials and brand films', 'Job site and event photography', 'Headshots and team photos', 'Fight week and live event coverage'],
+      li: ['Reels and short video', 'Commercials and brand films', 'Job site and event photography', 'Headshots and team photos', 'Athlete portraits and hype shoots', 'Fight week and live event coverage', 'Drone footage', 'Testimonial videos'],
+      how: 'Monthly or one shoot at a time', proof: '200+ athletes and dozens of job sites, gyms and offices in front of our cameras.',
       vis: { img: IMG('founder') },
     },
     {
       h: 'We run the pages so you can run the business.',
       p: 'A plan for the month, posts going out on schedule, and one team that owns it from the shoot to the caption.',
-      li: ['Monthly content plan and posting', 'Carousels, reels and captions', 'Instagram, Facebook, TikTok and YouTube', 'Event day posting while it is happening'],
+      li: ['Monthly content plan and posting', 'A calendar: what goes out, when and why', 'Carousels, reels and captions', 'Replies, comments and community', 'Instagram, Facebook, TikTok and YouTube', 'Event day posting while it is happening'],
+      how: 'Monthly', proof: 'We ran the social media for Dirty Boxing Championship 6 and Combat Zone MMA.',
       vis: { vid: 'reel-lbh' },
     },
     {
       h: 'Every post has a job: bring in money.',
       p: 'Views are a tool. The goal is calls, booked work, new members and tickets sold. That is how Marotte Industrial booked $150,000+ in three months.',
-      li: ['Offers and campaigns built around what you sell', 'Websites that turn visitors into leads', 'Event promotion that sells seats and pay per view'],
+      li: ['Content strategy: what to make and who it is for', 'Offers and campaigns built around what you sell', 'Websites that turn visitors into leads', 'Event promotion that sells seats and pay per view', 'Looking at what came back, then doing more of it'],
+      how: 'Monthly or by the project', proof: '$150,000+ in new business for Marotte Industrial. 75M views for Duel Arena.',
       vis: { img: IMG('bc-mi-site-talk') },
     },
   ];
@@ -87,6 +90,18 @@
       name: ['Combat', 'sports'],
       lede: 'Promotions, gyms and fighters. We cover fight week from the press conference to the walkout, cut the reels and run the pages.',
       stat: ['75M', 'views for Duel Arena in under a week, and 200+ athletes in front of our cameras.'],
+      tag: 'Monthly, plus event coverage',
+      how: [
+        ['The problem', 'A fight card is only news for about a week. Content that shows up late gets no views.'],
+        ['What we do', 'Cover the press conference, the weigh-ins, the arrivals and the fights. Cut it that night and run the pages while it is still happening.'],
+        ['What comes back', 'Views that sell tickets and pay per view, and fighters and sponsors who want to be on the next card.'],
+      ],
+      feat: [
+        ['ev-duel-presser', 'Duel Arena', '75M views in under a week. Kia Center, Orlando.'],
+        ['ev-dbx6-arena', 'Dirty Boxing Championship 6', 'We ran the social media for the event.'],
+        ['cs-nfp-punch', 'Northeast Fight Promotion', 'Fight coverage for NFP 1 and the promotion website.'],
+        ['cs-nabjj-kattar', 'North Andover Jiu-Jitsu', 'Class carousels and shoots, including an MMA class with Calvin Kattar.'],
+      ],
       faces: [['jon-jones', 'Jon Jones'], ['conor-mcgregor', 'Conor McGregor'], ['mike-perry', 'Mike Perry'], ['calvin-kattar', 'Calvin Kattar'], ['dillon-danis', 'Dillon Danis'], ['rob-font', 'Rob Font']],
       lists: [
         ['Promotions and events', ['Duel Arena', 'Dirty Boxing Championship', 'Combat Zone MMA', 'BKFC', 'Northeast Fight Promotion', 'ADCC', 'NAGA', 'Golden Gloves', 'Fuji Grappling', 'Grappling Industries', 'King of the Mat', 'PGF']],
@@ -105,6 +120,18 @@
       name: ['Blue', 'collar'],
       lede: 'Contractors, trades and farms. We show up on the job, shoot the real work and turn it into posts that make the phone ring.',
       stat: ['$150K+', 'in new business for Marotte Industrial within 3 months of working with us.'],
+      tag: 'Monthly, or by the project',
+      how: [
+        ['The problem', 'The work is good but nobody sees it. Customers call whoever looks the most trustworthy online.'],
+        ['What we do', 'Show up on the job, shoot the real work and the real crew, and turn it into reels, carousels and before and after posts.'],
+        ['What comes back', 'Calls for the kind of jobs you want. Marotte Industrial booked $150,000+ in three months.'],
+      ],
+      feat: [
+        ['bc-mi-skidsteer-dig', 'Marotte Industrial', '$150,000+ in new business within 3 months.'],
+        ['bc-lbh-bale-toss', 'Long Barn Hay', 'Delivery days and life on the farm, shot for social.'],
+        ['bc-si-chimney-liner', 'Sam & Ivan Chimney Guys', 'On the roof for a chimney liner install.'],
+        ['bc-gc-owner-wash', 'G&C Softwash', 'House wash shoot with the owner and the crew.'],
+      ],
       lists: [
         ['Businesses we have worked with', ['Marotte Industrial', 'Long Barn Hay', 'G&C Softwash', 'Sam & Ivan Chimney Guys', 'ACE Cleanouts', 'Merrimack Valley Roofing & Gutters', 'Seacoast Cabinets', 'Rebel Electric', 'Fox Gutter Cleaning', 'Anchor Auto Body']],
         ['What we make for the trades', ['Job site reels', 'Customer education carousels', 'Before and after', 'Owner and crew photos', 'Commercials', 'Websites']],
@@ -122,6 +149,18 @@
       name: ['White', 'collar'],
       lede: 'Real estate teams, med spas, offices and brands. Headshots that look like you on your best day, video that explains what you do, and events covered from setup to the last toast.',
       stat: ['223', 'finished photos delivered from one evening at the Ultimate Glow anniversary.'],
+      tag: 'Monthly, by the project, or one shoot',
+      how: [
+        ['The problem', 'Every office says it is the best in town. Stock photos and phone pictures say otherwise.'],
+        ['What we do', 'Headshots, team and event coverage, and video that explains what you do in plain words.'],
+        ['What comes back', 'A brand that looks as good as the service, with photos and video ready for the website, the listings and the feed.'],
+      ],
+      feat: [
+        ['wc-glow-group', 'Ultimate Glow', '223 finished photos from their 5 year anniversary.'],
+        ['wc-headshot-2', 'Professional headshots', 'In studio or on location, for owners and teams.'],
+        ['wc-glow-speech', 'Brand and team events', 'Covered from setup to the last toast.'],
+        ['wc-family', 'Family sessions', 'Portraits you book once. No contract.'],
+      ],
       lists: [
         ['Businesses we have worked with', ['Lucci Witte Team', 'Ultimate Glow', 'Xcaliber', 'Tuscan Market']],
         ['What we make for offices and brands', ['Professional headshots', 'Real estate and listing video', 'Brand and team events', 'Testimonial videos', 'Family and portrait sessions']],
@@ -355,7 +394,7 @@
     const vis = s.vis.vid
       ? `<video muted loop playsinline autoplay preload="metadata" poster="${POSTER(s.vis.vid)}" src="${VID(s.vis.vid)}"></video>`
       : `<img src="${s.vis.img}" alt="" loading="lazy">`;
-    svcPanel.innerHTML = `<div class="svc__txt"><h3>${s.h}</h3><p>${s.p}</p><ul>${s.li.map((l) => `<li>${l}</li>`).join('')}</ul></div><div class="svc__vis">${vis}</div>`;
+    svcPanel.innerHTML = `<div class="svc__txt"><span class="svc__how">${s.how}</span><h3>${s.h}</h3><p>${s.p}</p><ul>${s.li.map((l) => `<li>${l}</li>`).join('')}</ul><p class="svc__proof">${s.proof}</p></div><div class="svc__vis">${vis}</div>`;
     const v = $('video', svcPanel); if (v) v.play().catch(() => {});
   }
   svcTabs.forEach((t, i) => { t.addEventListener('click', () => showSvc(i)); t.addEventListener('mouseenter', () => { if (finePointer) showSvc(i); }); });
@@ -364,6 +403,7 @@
   const flowSteps = $$('.flow__step'), beam = $('#flowBeam');
   let flowI = 0, flowUser = false;
   function setFlow(i) {
+    if (!beam) return;
     flowI = i;
     flowSteps.forEach((s, k) => { s.classList.toggle('is-on', k === i); s.classList.toggle('is-done', k < i); });
     beam.style.width = ((i + 1) * 25) + '%';
@@ -387,13 +427,17 @@
             <div>
               <h3 class="ind__name">${d.name[0]} <em>${d.name[1]}</em></h3>
               <p class="ind__lede">${d.lede}</p>
+              <span class="ind__tag">How we work together: ${d.tag}</span>
             </div>
             <div>
               <div class="ind__stat"><b>${d.stat[0]}</b><span>${d.stat[1]}</span></div>
               <div class="ind__lists">${d.lists.map(([h, items]) => `<div class="ind__list"><h4>${h}</h4><ul>${items.map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
             </div>
           </div>
-          ${d.faces ? `<div class="faces">${d.faces.map(([n, name]) => `<figure class="face" style="margin:0"><img src="${IMG('ath-' + n)}" alt="${name}" loading="lazy"><b>${name}</b></figure>`).join('')}</div>` : ''}
+          <div class="ind__how">${d.how.map(([h, t], i) => `<div class="how"><h4><i>0${i + 1}</i>${h}</h4><p>${t}</p></div>`).join('')}</div>
+          <p class="ind__h">Featured work</p>
+          <div class="ind__feat">${d.feat.map(([n, c, t]) => `<figure class="feat" style="margin:0"><img src="${IMG(n)}" alt="${c}" loading="lazy"><div><b>${c}</b><span>${t}</span></div></figure>`).join('')}</div>
+          ${d.faces ? `<p class="ind__h">Athletes we have shot</p><div class="faces">${d.faces.map(([n, name]) => `<figure class="face" style="margin:0"><img src="${IMG('ath-' + n)}" alt="${name}" loading="lazy"><b>${name}</b></figure>`).join('')}</div>` : ''}
         </div>
         <div class="strip">
           <p class="strip__hint"><span>Drag the film. Click a frame to open it.</span><span>${d.shots.length} frames</span></p>
@@ -505,7 +549,7 @@
   $$('a', navLinks).forEach((a) => a.addEventListener('click', () => { navLinks.classList.remove('open'); burger.setAttribute('aria-expanded', false); }));
   $('#yr').textContent = new Date().getFullYear();
 
-  const sections = ['results', 'services', 'industries', 'proof', 'contact'].map((id) => $('#' + id));
+  const sections = ['results', 'services', 'process', 'industries', 'proof', 'about', 'faq', 'contact'].map((id) => $('#' + id)).filter(Boolean);
   const counted = new WeakSet();
   function countUp(el) {
     const to = +el.dataset.to, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';

@@ -9,8 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/site.css" />
-  <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/site.css?v=4" />
+  <link rel="stylesheet" href="css/fx.css?v=4" />
+  <link rel="stylesheet" href="css/more.css?v=4" />
   <script>
     // mark the page as scripted so the entrance states apply, with a safety net if anything stalls
     document.documentElement.classList.add('js');
@@ -54,6 +55,7 @@
     <a href="#services">What We Do</a>
     <a href="#industries">Industries</a>
     <a href="#proof">Proof</a>
+    <a href="#about">About</a>
     <a href="#contact" class="btn btn--gold btn--sm">Start a project</a>
   </nav>
   <div class="nav__tc" aria-hidden="true"><span class="rec"></span><span id="timecode">00:00:00:00</span></div>
@@ -156,6 +158,13 @@
     </div>
   </div>
 
+  <!-- exploded view: each part of the camera is one of the three jobs -->
+  <div class="xp" id="xp" aria-hidden="true">
+    <div class="xp__l"><i>02 &middot; The screen</i><b>Social media</b><span>Where your customers see it, posted on a schedule.</span></div>
+    <div class="xp__l xp__l--low"><i>03 &middot; The sensor</i><b>Marketing</b><span>Where the picture turns into calls and booked work.</span></div>
+    <div class="xp__l"><i>01 &middot; The lens</i><b>Camera work</b><span>Pointed at your job site, your gym or your office.</span></div>
+  </div>
+
   <!-- scroll takes you through the lens into the results -->
   <div class="dive" id="dive" aria-hidden="true">
     <div class="dive__say" id="diveSay"><span>Through the lens</span><b>Here is what comes back.</b></div>
@@ -186,8 +195,8 @@
         </div>
         <div class="case__body">
           <p class="case__tag">Blue collar · Marotte Industrial</p>
-          <p class="case__num"><span class="count" data-to="150000" data-prefix="$" data-suffix="+">$150,000+</span></p>
-          <div class="meter" aria-hidden="true"><div class="meter__bar"><i></i></div><div class="meter__ticks"><span>Day 1</span><span>Month 1</span><span>Month 2</span><span>Month 3</span></div></div>
+          <p class="case__num"><span class="num">$150,000+</span></p>
+          <div class="scrub" data-scrub="marotte"></div>
           <p class="case__line">in new business within 3 months of working with us.</p>
           <p class="case__how">We shot on their job sites, turned the footage into carousels and reels, and ran their social media. The phone started ringing with real jobs.</p>
         </div>
@@ -205,12 +214,20 @@
         </div>
         <div class="case__body">
           <p class="case__tag">Live events · Duel Arena, Orlando</p>
-          <p class="case__num"><span class="count" data-to="75" data-suffix="M">75M</span><small>views</small></p>
-          <div class="meter meter--week" aria-hidden="true"><div class="meter__bar"><i></i></div><div class="meter__ticks"><span>Day 1</span><span>Day 7</span></div></div>
+          <p class="case__num"><span class="num">75M</span><small>views</small></p>
+          <div class="scrub" data-scrub="duel"></div>
           <p class="case__line">in less than a week.</p>
           <p class="case__how">Press conference, weigh-ins, arrivals and fight night, cut and posted while people were still talking about it. Big events need big numbers and we can bring them.</p>
         </div>
       </article>
+    </div>
+
+    <!-- more numbers -->
+    <div class="minis">
+      <article class="mini reveal"><b><span class="count" data-to="200" data-suffix="+">200+</span></b><h3>Athletes on camera</h3><p>Including Jon Jones, Conor McGregor, Gordon Ryan and Calvin Kattar.</p></article>
+      <article class="mini reveal"><b><span class="count" data-to="223">223</span></b><h3>Photos from one evening</h3><p>Finished and delivered from the Ultimate Glow 5 year anniversary.</p></article>
+      <article class="mini reveal"><b><span class="count" data-to="2">2</span></b><h3>Fight promotions run</h3><p>We ran the social media for Dirty Boxing Championship 6 and Combat Zone MMA.</p></article>
+      <article class="mini reveal"><b><span class="count" data-to="4">4</span></b><h3>Formats from one shoot</h3><p>Photos, a reel, a carousel and a wide cut. One visit, a month of posts.</p></article>
     </div>
   </div>
 </section>
@@ -233,13 +250,60 @@
       <div class="svc__panel" id="svcPanel"></div>
     </div>
 
-    <div class="flow reveal" id="flow" aria-label="How a shoot becomes revenue">
-      <button class="flow__step is-on" data-i="0"><b>Shoot</b><span>On your job site, in your gym or cageside</span></button>
-      <button class="flow__step" data-i="1"><b>Edit</b><span>Reels, carousels, photos and commercials</span></button>
-      <button class="flow__step" data-i="2"><b>Post</b><span>We run the pages and the schedule</span></button>
-      <button class="flow__step" data-i="3"><b>Get paid</b><span>Calls, bookings and ticket sales</span></button>
-      <i class="flow__beam" id="flowBeam"></i>
+    <!-- a ring of finished work you can turn -->
+    <div class="ringwrap reveal">
+      <div class="ringwrap__head">
+        <h3>What ends up <em>on the feed.</em></h3>
+        <p>Reels and carousels we made for clients. Drag to turn it.</p>
+      </div>
+      <div class="ring" id="ring" data-cursor="Drag"><div class="ring__spin" id="ringSpin"></div></div>
     </div>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section class="proc" id="process">
+  <div class="proc__pin">
+    <header class="proc__head reveal">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 class="sec__title">From the first call <em>to booked work.</em></h2>
+      </div>
+      <p class="proc__count" aria-hidden="true"><b id="procN">01</b> / 06</p>
+    </header>
+    <div class="proc__track" id="procTrack">
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">01</span>
+        <div class="pstep__body"><h3>Talk</h3><p>Tell us what you want more of: calls, members, ticket sales or views. We come back with a plan and a price.</p><ul><li>Call, text or use the form</li><li>One shoot or a monthly plan</li><li>No guessing what it costs</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/bc-mi-site-talk.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">02</span>
+        <div class="pstep__body"><h3>Plan</h3><p>We work out what to make, when to post it and why. You get a calendar your business can actually keep up with.</p><ul><li>What you sell and who buys it</li><li>A shot list for every shoot</li><li>A content calendar for the month</li></ul></div>
+        <div class="pstep__media"><img class="contain" src="assets/carousel/marotte-2.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">03</span>
+        <div class="pstep__body"><h3>Shoot</h3><p>We come to you: the job site, the gym, the office or cageside. Photo and video on the same day.</p><ul><li>Photo and video together</li><li>Drone footage when the job calls for it</li><li>Your crew and your work, not stock photos</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/founder.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">04</span>
+        <div class="pstep__body"><h3>Edit</h3><p>One shoot becomes a reel, a carousel, a set of photos and a wide cut for the website.</p><ul><li>Reels for Instagram, TikTok and Shorts</li><li>Carousels that teach your customer something</li><li>Photos for the website, ads and print</li></ul></div>
+        <div class="pstep__media"><video muted loop playsinline preload="none" poster="assets/vid/reel-marotte.webp" src="assets/vid/reel-marotte.mp4" class="contain"></video></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">05</span>
+        <div class="pstep__body"><h3>Post</h3><p>We run the pages and the schedule so you can run the business. At events we post while it is happening.</p><ul><li>Instagram, Facebook, TikTok and YouTube</li><li>Captions written for you</li><li>Replies and community handled</li></ul></div>
+        <div class="pstep__media"><img class="contain" src="assets/carousel/nabjj-1.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">06</span>
+        <div class="pstep__body"><h3>Count</h3><p>Views are a tool. We look at what came back: calls, booked jobs, new members and tickets sold. Then we do more of what worked.</p><ul><li>$150,000+ for Marotte Industrial in 3 months</li><li>75M views for Duel Arena in under a week</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/bc-mi-demo-excavator.webp" alt="" loading="lazy"></div>
+      </article>
+    </div>
+    <div class="proc__bar" aria-hidden="true"><i id="procBar"></i></div>
   </div>
 </section>
 
@@ -268,7 +332,50 @@
       <p class="eyebrow">Proof</p>
       <h2 class="sec__title">The people we shoot <em>say it better.</em></h2>
     </header>
+    <div class="names reveal" id="names">
+      <p class="names__k">200+ athletes on our cameras. A few you will know.</p>
+      <ul><li data-img="ath-jon-jones"><b>Jon Jones</b><span>UFC light heavyweight and heavyweight champion</span></li><li data-img="ath-conor-mcgregor"><b>Conor McGregor</b><span>UFC featherweight and lightweight champion</span></li><li data-img="ath-mike-perry"><b>Mike Perry</b><span>BKFC King of Violence champion</span></li><li data-img="ath-calvin-kattar"><b>Calvin Kattar</b><span>UFC featherweight</span></li><li data-img="ath-dillon-danis"><b>Dillon Danis</b><span>Misfits MMA welterweight champion</span></li><li data-img="ath-rob-font"><b>Rob Font</b><span>UFC bantamweight</span></li><li data-img=""><b>Gordon Ryan</b><span>Grappling</span></li><li data-img=""><b>John Danaher</b><span>Coach</span></li><li data-img="poster-kyle-bochniak"><b>Kyle Bochniak</b><span>UFC veteran</span></li><li data-img="cs-murrin-bag"><b>James Murrin</b><span>Hype shoot</span></li><li data-img=""><b>Stitch Duran</b><span>Cutman</span></li></ul>
+    </div>
+    <p class="names__k reveal">In their words</p>
     <div class="proof" id="proofGrid"></div>
+  </div>
+</section>
+
+<!-- ============================ ABOUT ============================ -->
+<section class="sec" id="about">
+  <div class="wrap about">
+    <div class="about__pic reveal"><img src="assets/img/founder.webp" alt="The founder of Paperview Productions on a shoot" loading="lazy" /><span class="about__tag">On a shoot &middot; Haverhill, MA</span></div>
+    <div class="about__copy reveal">
+      <p class="eyebrow">Who we are</p>
+      <h2 class="sec__title">A media team <em>run by a fighter.</em></h2>
+      <p class="about__lead">I am the founder of Paperview Productions, a digital media and content company based in the Haverhill, MA area. We build content and run social media for businesses that want to look as serious as they actually are.</p>
+      <p>I am also a fighter. I have trained and competed, and our team has handled media for athletes like Jon Jones, Gordon Ryan, John Danaher, Rob Font and Calvin Kattar, and run the social media for Dirty Boxing Championship 6 and Calvin Kattar's Combat Zone MMA. When athletes at that level trust you with their image, you learn how to make anyone look their best under pressure.</p>
+      <p>That is what you get with our team: the eye and polish of a real media company, backed by the discipline and follow-through you would expect from people who train. Whether you are filling classes, booking jobs or selling out an arena, the standard stays the same.</p>
+      <div class="about__stats">
+        <div><b><span class="count" data-to="200" data-suffix="+">200+</span></b><span>Athletes on camera</span></div>
+        <div><b><span class="count" data-to="75" data-suffix="M">75M</span></b><span>Views in one fight week</span></div>
+        <div><b><span class="count" data-to="150" data-prefix="$" data-suffix="K+">$150K+</span></b><span>For one client in 3 months</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section class="sec sec--alt" id="faq">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Questions</p>
+      <h2 class="sec__title">What people ask <em>before they call.</em></h2>
+    </header>
+    <div class="faq reveal" id="faqList">
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Is this just video?</span><i></i></button><div class="qa__a"><div><p>No. We shoot it, we post it and we build the marketing around it. The point is what comes back: Marotte Industrial booked $150,000+ in new business within 3 months of working with us.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>What kinds of businesses do you work with?</span><i></i></button><div class="qa__a"><div><p>Blue collar businesses like contractors, trades and farms. White collar firms like real estate teams, med spas and offices. Combat sports: promotions, gyms and fighters. We also shoot headshots, portraits and family sessions for individuals.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Is it a monthly plan or a one time shoot?</span><i></i></button><div class="qa__a"><div><p>Both. Social media management and content strategy run month to month. Shoots, headshots, event coverage and commercials can be booked one at a time.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Do you travel?</span><i></i></button><div class="qa__a"><div><p>Yes. We are based in Haverhill, MA and we travel for events. Duel Arena was at the Kia Center in Orlando.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Can you handle a big event?</span><i></i></button><div class="qa__a"><div><p>Yes. We cover fight week from the press conference to the walkout and post while it is happening. Duel Arena reached 75 million views in less than a week. We have also covered Dirty Boxing Championship, BKFC and Northeast Fight Promotion.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Where do I find photos from an event you shot?</span><i></i></button><div class="qa__a"><div><p>Event photos are in our Pixieset store at <a href="https://paperviewproductions.pixieset.com" target="_blank" rel="noreferrer">paperviewproductions.pixieset.com</a>.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>How do we get started?</span><i></i></button><div class="qa__a"><div><p>Send the form below, or call or text (978) 918-6755. Tell us about the business and what you want more of, and we will come back with a plan and a price.</p></div></div></div>
+    </div>
   </div>
 </section>
 
@@ -337,7 +444,8 @@
   <button class="lb__nav lb__nav--n" id="lbN" aria-label="Next">&#9654;</button>
 </div>
 
-<script src="js/site.js" defer></script>
-<script src="js/fx.js" defer></script>
+<script src="js/site.js?v=4" defer></script>
+<script src="js/fx.js?v=4" defer></script>
+<script src="js/more.js?v=4" defer></script>
 </body>
 </html>
