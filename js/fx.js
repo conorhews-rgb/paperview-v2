@@ -605,7 +605,7 @@
       $$('.vf__tick').forEach((t) => t.classList.toggle('is-on', t.dataset.id === cur.id));
     }
     scrEls.forEach((el) => { if (!el._scr && el.getBoundingClientRect().top < vh * 0.9) scramble(el); });
-    $$('.case.in:not(.did)').forEach((c) => { c.classList.add('did'); setTimeout(() => burst(c), 1850); });
+    $$('.case.in:not(.did)').forEach((c) => { c.classList.add('did'); setTimeout(() => burst(c), 2750); });
     railLink();
     if (footMark) {
       const r = footMark.getBoundingClientRect(), fh = footMark.parentNode.offsetHeight;

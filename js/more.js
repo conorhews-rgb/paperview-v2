@@ -23,13 +23,13 @@
     marotte: {
       steps: [['Month 1', 30000, ''], ['Month 2', 50000, ''], ['Month 3', 70000, '']],
       fmt: money, short: (v) => '$' + Math.round(v / 1000) + 'K', end: '$150,000+',
-      say: (s, v, tot, last) => `<b>${s[0]}:</b> ${money(v)} in new business. ${last ? '<b>$150,000+ in total.</b>' : money(tot) + ' so far.'}`,
+      say: (s, v, last) => `<b>${s[0]}:</b> ${money(v)} in new business.${last ? ' <b>$150,000+ in total.</b>' : ''}`,
     },
     // Daily split is an estimate that adds up to the real 75M total. Swap in the real numbers from the analytics here.
     duel: {
       steps: [['Day 1', 6e6, ''], ['Day 2', 10e6, ''], ['Day 3', 24e6, 'Weigh-ins'], ['Day 4', 35e6, 'Fight day']],
       fmt: views, short: (v) => '~' + views(v), end: '75M', approx: true,
-      say: (s, v, tot, last) => `<b>${s[0]}${s[2] ? ', ' + s[2].toLowerCase() : ''}:</b> about ${views(v)} views that day. ${last ? '<b>75M in total.</b>' : 'About ' + views(tot) + ' so far.'}`,
+      say: (s, v, last) => `<b>${s[0]}${s[2] ? ', ' + s[2].toLowerCase() : ''}:</b> about ${views(v)} views that day.${last ? ' <b>75M in total.</b>' : ''}`,
     },
   };
 
@@ -62,49 +62,63 @@
     const totals = cfg.steps.reduce((acc, s) => { acc.push((acc[acc.length - 1] || 0) + s[1]); return acc; }, []);
     box.innerHTML = `<p class="scrub__hint">Drag to see it build</p>
       <div class="scrub__bars">${cfg.steps.map((s, i) => `<button type="button" class="scrub__bar" data-i="${i}" style="--h:${Math.round(s[1] / max * 78)}" aria-label="${s[0]}">${cfg.short(s[1])}<i></i></button>`).join('')}</div>
-      <input class="scrub__range" type="range" min="1" max="${n}" step="1" value="${n}" aria-label="${cfg.steps[0][0].split(' ')[0]}" />
+      <input class="scrub__range" type="range" min="0" max="${n}" step="any" value="${n}" aria-label="${cfg.steps[0][0].split(' ')[0]}" />
       <div class="scrub__ticks">${cfg.steps.map((s) => `<span>${s[0]}${s[2] ? `<em>${s[2]}</em>` : ''}</span>`).join('')}</div>
       <p class="scrub__say" aria-live="polite"></p>${cfg.approx ? '<p class="scrub__note">Daily split is approximate</p>' : ''}`;
-    const range = $('.scrub__range', box), bars = $$('.scrub__bar', box), ticks = $$('.scrub__ticks span', box), say = $('.scrub__say', box);
-    let shown = totals[n - 1], raf = null;
-    function tween(to, label) {
+    const range = $('.scrub__range', box), bars = $$('.scrub__bar', box), fills = bars.map((b) => $('i', b)), ticks = $$('.scrub__ticks span', box), say = $('.scrub__say', box);
+    let v = n, idx = -1, sayKey = '', raf = null;
+    // running total at any point along the slider, not just at the stops
+    const totalAt = (x) => { const k = Math.min(n - 1, Math.floor(x)); return (k > 0 ? totals[k - 1] : 0) + cfg.steps[k][1] * Math.min(1, x - k); };
+    function draw(x) {
+      v = clamp(x, 0, n);
+      const last = v >= n - 0.002, i = clamp(Math.ceil(v - 0.002) - 1, 0, n - 1);
+      range.style.setProperty('--p', (v / n * 100).toFixed(2) + '%');
+      fills.forEach((f, k) => f.style.setProperty('--f', clamp(v - k, 0, 1).toFixed(3)));
+      numEl.textContent = last ? cfg.end : cfg.fmt(totalAt(v));
+      if (i !== idx) {
+        idx = i;
+        bars.forEach((b, k) => { b.classList.toggle('is-in', k <= i); b.classList.toggle('is-on', k === i); });
+        ticks.forEach((t, k) => t.classList.toggle('is-on', k === i));
+      }
+      const key = i + (last ? 'x' : '');
+      if (key !== sayKey) { sayKey = key; say.innerHTML = cfg.say(cfg.steps[i], cfg.steps[i][1], last); }
+    }
+    // ease the thumb to a position instead of jumping there
+    function glide(to, dur, inOut) {
       cancelAnimationFrame(raf);
-      if (reduce || document.hidden) { shown = to; numEl.textContent = label || cfg.fmt(to); return; }
-      const from = shown, t0 = performance.now(), dur = 520;
+      if (reduce || document.hidden) { range.value = to; draw(to); return; }
+      const from = v, t0 = performance.now();
       const tick = (now) => {
-        const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-        shown = from + (to - from) * e;
-        numEl.textContent = p >= 1 && label ? label : cfg.fmt(shown);
+        const p = Math.min(1, (now - t0) / dur);
+        const e = inOut ? (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2) : 1 - Math.pow(1 - p, 3);
+        const x = from + (to - from) * e;
+        range.value = x; draw(x);
         if (p < 1) raf = requestAnimationFrame(tick);
       };
       raf = requestAnimationFrame(tick);
     }
-    function set(i, quiet) {
-      i = clamp(i, 0, n - 1);
-      range.value = i + 1;
-      range.style.setProperty('--p', (n > 1 ? i / (n - 1) * 100 : 100) + '%');
-      bars.forEach((b, k) => { b.classList.toggle('is-in', k <= i); b.classList.toggle('is-on', k === i); });
-      ticks.forEach((t, k) => t.classList.toggle('is-on', k === i));
-      say.innerHTML = cfg.say(cfg.steps[i], cfg.steps[i][1], totals[i], i === n - 1);
-      if (!quiet) tween(totals[i], i === n - 1 ? cfg.end : '');
-    }
-    const st = { box, c, set, n, played: false, user: false };
-    const touched = () => { st.user = true; clearTimeout(st.timer); };
-    range.addEventListener('input', () => { touched(); set(+range.value - 1); });
-    bars.forEach((b) => b.addEventListener('click', () => { touched(); set(+b.dataset.i); }));
-    ticks.forEach((t, k) => t.addEventListener('click', () => { touched(); set(k); }));
-    set(n - 1, true);
+    const st = { c, played: false, user: false, play: () => { range.value = 0; draw(0); glide(n, 2400, true); } };
+    const touched = () => { st.user = true; };
+    range.addEventListener('pointerdown', () => { touched(); cancelAnimationFrame(raf); });
+    range.addEventListener('input', () => { touched(); cancelAnimationFrame(raf); draw(+range.value); });
+    range.addEventListener('change', () => glide(Math.max(1, Math.round(v)), 340));   // on release it settles on the nearest stop
+    range.addEventListener('keydown', (e) => {
+      const d = (e.key === 'ArrowRight' || e.key === 'ArrowUp') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowDown') ? -1 : 0;
+      if (!d) return;
+      e.preventDefault(); touched(); glide(clamp(Math.round(v) + d, 1, n), 420);
+    });
+    bars.forEach((b) => b.addEventListener('click', () => { touched(); glide(+b.dataset.i + 1, 560); }));
+    ticks.forEach((t, k) => t.addEventListener('click', () => { touched(); glide(k + 1, 560); }));
+    draw(n);
     scrubs.push(st);
   });
-  // the first time a case comes into view, play it through once
+  // the first time a case comes into view, it builds from zero once
   function playScrubs() {
     scrubs.forEach((st) => {
       if (st.played || !st.c.classList.contains('in')) return;
       st.played = true;
       if (reduce) return;
-      let i = 0;
-      const step = () => { if (st.user) return; st.set(i); i++; if (i < st.n) st.timer = setTimeout(step, 620); };
-      st.timer = setTimeout(step, 250);
+      setTimeout(() => { if (!st.user) st.play(); }, 250);
     });
   }
 
