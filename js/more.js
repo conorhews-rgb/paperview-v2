@@ -48,7 +48,7 @@
     { img: 'assets/carousel/marotte-2.webp', kind: 'Carousel', who: 'Marotte Industrial' },
     { img: 'assets/carousel/nabjj-2.webp', kind: 'Carousel', who: 'North Andover Jiu-Jitsu' },
     { img: 'assets/carousel/broadway-2.webp', kind: 'Carousel', who: 'Broadway Jiu-Jitsu' },
-    { img: 'assets/carousel/marotte-3.webp', kind: 'Carousel', who: 'Marotte Industrial' },
+    { vid: 'reel-cz', kind: 'Reel', who: 'Combat Zone MMA' },
   ];
 
   /* ==================================================================

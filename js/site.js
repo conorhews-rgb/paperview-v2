@@ -28,7 +28,7 @@
     {
       key: 'combat', label: 'Combat sports', exp: ['1/1000', 'f/2.8', 'ISO 3200'],
       photo: { src: IMG('cs-mcgregor-belt'), ratio: 3 / 2, client: 'Conor McGregor', what: 'Athlete photography' },
-      reel: { vid: 'reel-fight', ratio: 9 / 16, client: 'Fight night', what: 'Recap reel' },
+      reel: { vid: 'reel-cz', ratio: 9 / 16, client: 'Combat Zone MMA', what: 'Pay per view hype reel' },
       carousel: { slides: [1, 2, 3, 4].map((i) => CAR(`nabjj-${i}`)), ratio: 3 / 4, client: 'North Andover Jiu-Jitsu', what: 'Class carousel' },
       wide: { src: IMG('cs-nfp-punch'), ratio: 16 / 9, client: 'Northeast Fight Promotion', what: 'NFP 1 fight coverage' },
     },
@@ -70,7 +70,7 @@
       h: 'We run the pages so you can run the business.',
       p: 'A plan for the month, posts going out on schedule, and one team that owns it from the shoot to the caption.',
       li: ['Monthly content plan and posting', 'A calendar: what goes out, when and why', 'Carousels, reels and captions', 'Replies, comments and community', 'Instagram, Facebook, TikTok and YouTube', 'Event day posting while it is happening'],
-      how: 'Monthly', proof: 'We ran the social media for Dirty Boxing Championship 6 and Combat Zone MMA.',
+      how: 'Monthly', proof: 'Combat Zone MMA has been a client for 3+ years. We also ran the social media for Dirty Boxing Championship 6.',
       vis: { vid: 'reel-lbh' },
     },
     {
@@ -97,19 +97,27 @@
         ['What comes back', 'Views that sell tickets and pay per view, and fighters and sponsors who want to be on the next card.'],
       ],
       feat: [
+        ['cs-cz-champ', 'Combat Zone MMA', 'Our client for 3+ years. Fight weeks, hype videos and the social media.'],
         ['ev-duel-presser', 'Duel Arena', '75M views in under a week. Kia Center, Orlando.'],
+        ['ath-connor-barry', 'Northeast Fight Promotion', 'Fight coverage, champion portraits with the belts and the promotion website.'],
         ['ev-dbx6-arena', 'Dirty Boxing Championship 6', 'We ran the social media for the event.'],
-        ['cs-nfp-punch', 'Northeast Fight Promotion', 'Fight coverage for NFP 1 and the promotion website.'],
-        ['cs-nabjj-kattar', 'North Andover Jiu-Jitsu', 'Class carousels and shoots, including an MMA class with Calvin Kattar.'],
       ],
-      faces: [['jon-jones', 'Jon Jones'], ['conor-mcgregor', 'Conor McGregor'], ['mike-perry', 'Mike Perry'], ['calvin-kattar', 'Calvin Kattar'], ['dillon-danis', 'Dillon Danis'], ['rob-font', 'Rob Font']],
+      faces: [['jon-jones', 'Jon Jones'], ['conor-mcgregor', 'Conor McGregor'], ['mike-perry', 'Mike Perry'], ['calvin-kattar', 'Calvin Kattar'], ['dillon-danis', 'Dillon Danis'], ['rob-font', 'Rob Font'], ['connor-barry', 'Connor Barry'], ['victoria-walsh', 'Victoria Walsh']],
+      spot: {
+        k: 'Our longest running client', name: 'Combat Zone MMA', big: '3+', unit: 'years',
+        text: "Calvin Kattar's Combat Zone has been with us for more than three years. Event after event we shoot fight week, cut the hype and pay per view videos, film the walkouts and the finishes, and run the social media.",
+        li: ['Fight week and weigh-in coverage', 'Hype and pay per view videos', 'Walkout and finish clips', 'Fight night photos', 'A social media run of show for every event'],
+        vid: 'reel-cz', imgs: [['cs-cz-belt', 'CZ87'], ['cs-cz-cage', 'CZ91'], ['cs-cz-kick', 'CZ93'], ['cs-cz-team', 'CZ87']],
+      },
       lists: [
         ['Promotions and events', ['Duel Arena', 'Dirty Boxing Championship', 'Combat Zone MMA', 'BKFC', 'Northeast Fight Promotion', 'ADCC', 'NAGA', 'Golden Gloves', 'Fuji Grappling', 'Grappling Industries', 'King of the Mat', 'PGF']],
         ['Gyms and brands', ['North Andover Jiu-Jitsu', 'Broadway Jiu-Jitsu', 'Precision Jiu-Jitsu', 'Team Link', 'Kingsway', 'Off-Season', 'Ruthless Syndicate']],
         ['Also on our cameras', ['Gordon Ryan', 'John Danaher', 'Kyle Bochniak', 'James Murrin', 'Stitch Duran']],
       ],
       shots: [
-        ['cs-nfp-arms-raised', 'Northeast Fight Promotion', 'NFP 1'], ['cs-bkfc-exchange', 'BKFC', 'Mohegan Sun'], ['cs-murrin-bag', 'James Murrin', 'Hype shoot'],
+        ['ath-connor-barry', 'Northeast Fight Promotion', 'Connor Barry, middleweight champion'], ['cs-cz-champ', 'Combat Zone MMA', 'CZ87'], ['cs-nfp-arms-raised', 'Northeast Fight Promotion', 'NFP 1'],
+        ['ath-victoria-walsh', 'Northeast Fight Promotion', 'Victoria Walsh, bantamweight champion'], ['cs-cz-kick', 'Combat Zone MMA', 'CZ93'], ['cs-bkfc-exchange', 'BKFC', 'Mohegan Sun'],
+        ['cs-cz-cage', 'Combat Zone MMA', 'CZ91'], ['cs-murrin-bag', 'James Murrin', 'Hype shoot'],
         ['ev-dbx6-arena', 'Dirty Boxing Championship', 'DBX 6'], ['cs-nabjj-class', 'North Andover Jiu-Jitsu', 'Calvin Kattar class'], ['cs-nfp-red', 'Northeast Fight Promotion', 'NFP 1'],
         ['cs-kattar-sig', 'Calvin Kattar', 'Training day'], ['cs-bkfc-ropes', 'BKFC', 'Mohegan Sun'], ['cs-murrin-mitts', 'James Murrin', 'Hype shoot'],
         ['ev-duel-namecard', 'Duel Arena', 'Press conference'], ['cs-nfp-blue', 'Northeast Fight Promotion', 'NFP 1'], ['cs-nabjj-kattar', 'North Andover Jiu-Jitsu', 'Calvin Kattar class'],
@@ -435,6 +443,19 @@
             </div>
           </div>
           <div class="ind__how">${d.how.map(([h, t], i) => `<div class="how"><h4><i>0${i + 1}</i>${h}</h4><p>${t}</p></div>`).join('')}</div>
+          ${d.spot ? `<div class="spotl">
+            <div class="spotl__txt">
+              <p class="spotl__k">${d.spot.k}</p>
+              <h4>${d.spot.name}</h4>
+              <p class="spotl__big"><b>${d.spot.big}</b><span>${d.spot.unit}</span></p>
+              <p>${d.spot.text}</p>
+              <ul>${d.spot.li.map((x) => `<li>${x}</li>`).join('')}</ul>
+            </div>
+            <div class="spotl__pics">
+              <figure class="spotl__vid" style="margin:0"><video muted loop playsinline autoplay preload="metadata" poster="${POSTER(d.spot.vid)}" src="${VID(d.spot.vid)}"></video><figcaption>Hype reel</figcaption></figure>
+              ${d.spot.imgs.map(([n, c]) => `<figure style="margin:0"><img src="${IMG(n)}" alt="${d.spot.name}, ${c}" loading="lazy"><figcaption>${c}</figcaption></figure>`).join('')}
+            </div>
+          </div>` : ''}
           <p class="ind__h">Featured work</p>
           <div class="ind__feat">${d.feat.map(([n, c, t]) => `<figure class="feat" style="margin:0"><img src="${IMG(n)}" alt="${c}" loading="lazy"><div><b>${c}</b><span>${t}</span></div></figure>`).join('')}</div>
           ${d.faces ? `<p class="ind__h">Athletes we have shot</p><div class="faces">${d.faces.map(([n, name]) => `<figure class="face" style="margin:0"><img src="${IMG('ath-' + n)}" alt="${name}" loading="lazy"><b>${name}</b></figure>`).join('')}</div>` : ''}
