@@ -264,3 +264,7 @@
   .proc.is-pinned .proc__pin { padding: 74px 0 22px; }
   .proc__bar { margin-top: 20px; }
 }
+
+/* shown only when the browser will not start a reel by itself */
+.rcard__tap { position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: var(--gold-grad); color: #15110a; display: none; place-items: center; font-size: 1rem; padding-left: 4px; z-index: 3; box-shadow: 0 0 0 0 rgba(233, 206, 130, .5); animation: pulse2 2.4s infinite; }
+.rcard.needs-tap .rcard__tap { display: grid; }

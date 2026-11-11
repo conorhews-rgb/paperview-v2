@@ -120,9 +120,11 @@
       if (it.vid) {
         const v = mk('video', '', f);
         v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none';
+        v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
         v.poster = `assets/vid/${it.vid}.webp`; v.dataset.src = `assets/vid/${it.vid}.mp4`;
       } else { const im = mk('img', '', f); im.src = it.img; im.alt = `${it.kind}, ${it.who}`; im.loading = 'lazy'; im.draggable = false; }
       mk('figcaption', '', f, `<i>${it.kind}</i>${it.who}`);
+      if (it.vid) mk('span', 'rcard__tap', f, '&#9654;');
       rcards.push({ el: f, vid: $('video', f), dim: -1, on: false });
     });
     ring.addEventListener('pointerdown', (e) => { if (e.button > 0) return; rd = { id: e.pointerId, x: e.clientX, y: e.clientY, lx: e.clientX, on: false }; });
@@ -139,6 +141,33 @@
     const endR = () => { if (rd && rd.on) { ring.classList.remove('is-drag'); lastTouch = performance.now(); } rd = null; };
     ring.addEventListener('pointerup', endR); ring.addEventListener('pointercancel', endR);
   }
+  // Start a reel. Some browsers refuse to start video on their own (Safari in Low Power Mode, data saver),
+  // so when that happens the card shows a play button and any click or key press starts it.
+  function playCard(c) {
+    if (!c.vid.getAttribute('src')) c.vid.src = c.vid.dataset.src;
+    const p = c.vid.play();
+    if (p && p.then) p.then(() => c.el.classList.remove('needs-tap')).catch(() => { if (c.on) c.el.classList.add('needs-tap'); });
+  }
+  function unlockVideo() {
+    // inside a real click, tap or key press the browser lets video start, and remembers it for that video
+    if (ringSeen) rcards.forEach((c) => {
+      if (!c.vid) return;
+      if (c.on) return playCard(c);
+      if (c.primed) return;
+      c.primed = true;
+      if (!c.vid.getAttribute('src')) c.vid.src = c.vid.dataset.src;
+      const p = c.vid.play();
+      if (p && p.then) p.then(() => { if (!c.on) c.vid.pause(); }).catch(() => { c.primed = false; });
+    });
+    // looping clips only: testimonial videos have controls and stay as the viewer left them
+    $$('video[autoplay]:not([controls])').forEach((v) => {
+      if (!v.paused) return;
+      const r = v.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {});
+    });
+  }
+  ['pointerdown', 'pointerup', 'keydown', 'touchend', 'click'].forEach((ev) => addEventListener(ev, unlockVideo, { passive: true }));
+
   function sizeRing() {
     if (!ring || !rcards.length) return;
     const cw = rcards[0].el.offsetWidth;
@@ -158,7 +187,7 @@
       const on = ringSeen && a < 40;
       if (on !== c.on) {
         c.on = on;
-        if (on) { if (!c.vid.src) c.vid.src = c.vid.dataset.src; c.vid.play().catch(() => {}); } else c.vid.pause();
+        if (on) playCard(c); else { c.vid.pause(); c.el.classList.remove('needs-tap'); }
       }
     });
   }
@@ -169,7 +198,7 @@
     if (!seen) return;
     if (!rd || !rd.on) {
       ang += vel; vel *= 0.94;
-      if (Math.abs(vel) < 0.03 && !reduce && performance.now() - lastTouch > 1800) ang += 0.035;   // idles slowly until you grab it
+      if (Math.abs(vel) < 0.03 && !reduce && performance.now() - lastTouch > 1800) ang += 0.05;   // idles slowly until you grab it
     }
     drawRing();
   }
@@ -288,7 +317,11 @@
     requestAnimationFrame(frame);
   }
   function start() { if (running || document.hidden) return; running = true; requestAnimationFrame(frame); }
-  document.addEventListener('visibilitychange', start);
+  document.addEventListener('visibilitychange', () => {
+    start();
+    // coming back to the tab: try again on any reel that was refused while the page was in the background
+    if (!document.hidden) rcards.forEach((c) => { if (c.vid && c.on && c.vid.paused) playCard(c); });
+  });
 
   let rz = null;
   const relayout = () => { sizeRing(); layoutProc(); onScroll(); };
