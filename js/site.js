@@ -29,14 +29,14 @@
       key: 'combat', label: 'Combat sports', exp: ['1/1000', 'f/2.8', 'ISO 3200'],
       photo: { src: IMG('cs-mcgregor-belt'), ratio: 3 / 2, client: 'Conor McGregor', what: 'Athlete photography' },
       reel: { vid: 'reel-cz', ratio: 9 / 16, client: 'Combat Zone MMA', what: 'Pay per view hype reel' },
-      carousel: { slides: [1, 2, 3, 4].map((i) => CAR(`nabjj-${i}`)), ratio: 3 / 4, client: 'North Andover Jiu-Jitsu', what: 'Class carousel' },
+      carousel: { slides: ['cs-nabjj-class', 'cs-nabjj-kattar', 'cs-nabjj-student'].map(IMG), ratio: 4 / 5, client: 'North Andover Jiu-Jitsu', what: 'Class photo carousel' },
       wide: { src: IMG('cs-nfp-punch'), ratio: 16 / 9, client: 'Northeast Fight Promotion', what: 'NFP 1 fight coverage' },
     },
     {
       key: 'blue', label: 'Blue collar', exp: ['1/500', 'f/4', 'ISO 200'],
       photo: { src: IMG('bc-mi-demo-excavator'), ratio: 3 / 2, client: 'Marotte Industrial', what: 'Job site photography' },
       reel: { vid: 'reel-marotte', ratio: 9 / 16, client: 'Marotte Industrial', what: 'Demolition reel' },
-      carousel: { slides: [1, 2, 3, 4].map((i) => CAR(`marotte-${i}`)), ratio: 4 / 5, client: 'Marotte Industrial', what: 'Customer education carousel' },
+      carousel: { slides: ['bc-mi-hydrant-wrench', 'bc-mi-skidsteer-dig', 'bc-mi-stone-dump', 'bc-mi-carry-overhead'].map(IMG), ratio: 4 / 5, client: 'Marotte Industrial', what: 'Job site photo carousel' },
       wide: { src: IMG('bc-lbh-bale-sky'), ratio: 16 / 9, client: 'Long Barn Hay', what: 'Delivery day' },
     },
     {
