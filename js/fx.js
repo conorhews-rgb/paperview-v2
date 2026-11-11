@@ -317,9 +317,17 @@
     }
     if (xp && ex > 0.3) {
       const pr = pin.getBoundingClientRect();
-      const put = (el, r, low) => { el.style.setProperty('--x', (r.left + r.width / 2 - pr.left).toFixed(1) + 'px'); el.style.setProperty('--y', ((low ? r.top + r.height + 10 : r.top - 10) - pr.top).toFixed(1) + 'px'); };
-      put(xpL[0], cam.getBoundingClientRect());
-      put(xpL[1], parts.sensor.getBoundingClientRect(), true);
+      // labels stay inside the frame whatever the window size: clear of the nav at the top and the edge at the bottom
+      const put = (el, r, mode) => {
+        const h = el.offsetHeight, w = el.offsetWidth;
+        let x = r.left + r.width / 2, y;
+        if (mode === 'side') { x = Math.max(r.left - 16, w + 14); y = clamp(r.top + r.height * 0.34, 80 + h / 2, vh - h / 2 - 14); }
+        else if (mode === 'low') y = Math.min(r.top + r.height + 10, vh - h - 14);
+        else y = Math.max(r.top - 10, 80 + h);
+        el.style.setProperty('--x', (x - pr.left).toFixed(1) + 'px'); el.style.setProperty('--y', (y - pr.top).toFixed(1) + 'px');
+      };
+      put(xpL[0], cam.getBoundingClientRect(), 'side');
+      put(xpL[1], parts.sensor.getBoundingClientRect(), 'low');
       const f = parts.lfront.getBoundingClientRect(), k = parts.lback.getBoundingClientRect();
       put(xpL[2], { left: Math.min(f.left, k.left), width: Math.max(f.right, k.right) - Math.min(f.left, k.left), top: Math.min(f.top, k.top) });
     }

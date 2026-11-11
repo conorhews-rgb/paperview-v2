@@ -16,6 +16,8 @@
 .xp__l::after { content: ''; position: absolute; left: 50%; bottom: 8px; width: 1px; height: 34px; background: linear-gradient(var(--gold-hi), rgba(233, 206, 130, 0)); }
 .xp__l--low { padding: 50px 0 0; transform: translate(var(--x, 50vw), var(--y, 70vh)); }
 .xp__l--low::after { bottom: auto; top: 8px; background: linear-gradient(rgba(233, 206, 130, 0), var(--gold-hi)); }
+.xp__l--side { width: 214px; margin-left: 0; padding: 0 46px 0 0; text-align: right; transform: translate(var(--x, 30vw), var(--y, 40vh)) translate(-100%, -50%); }
+.xp__l--side::after { left: auto; right: 4px; bottom: auto; top: 50%; width: 34px; height: 1px; background: linear-gradient(90deg, rgba(233, 206, 130, 0), var(--gold-hi)); }
 .xp__l i { display: block; font-style: normal; font-family: var(--mono); font-size: .6rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
 .xp__l b { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.3rem); line-height: 1; letter-spacing: .03em; text-transform: uppercase; }
 .xp__l span { display: block; color: var(--ash); font-size: .84rem; line-height: 1.4; margin-top: 7px; }
@@ -233,4 +235,23 @@
 @media (prefers-reduced-motion: reduce) {
   .about__pic.reveal { clip-path: none; }
   .how, .feat, .ind__tag { animation: none; }
+}
+
+/* short desktop windows: a more compact camera so the hero, the film roll and the labels all fit */
+@media (min-width: 1181px) and (max-height: 800px) {
+  .cam__top { height: 46px; }
+  .cam__shutter { width: 44px; height: 44px; }
+  .cam__shutter span { width: 30px; height: 30px; }
+  .cam { padding-bottom: 14px; }
+  .cam__ctl { gap: 8px; padding-top: 2px; }
+  .ctl__label { margin-bottom: 5px; }
+  .mode__list { gap: 2px; }
+  .mode__b { padding: 4px 9px; font-size: .78rem; }
+  .fmt__b { padding: 6px 4px 5px; gap: 4px; }
+  .pad { width: 32px; height: 32px; }
+  .roll__strip { max-width: 470px; padding: 8px; }
+  .rigbar { margin-top: 16px; }
+  .rig { margin-top: 26px; }
+  .hero.is-pinned .hero__pin { padding-top: 78px; padding-bottom: 18px; }
+  .hero.is-pinned .hero__cam { max-width: calc((100vh - 300px) * 1.72); }
 }
