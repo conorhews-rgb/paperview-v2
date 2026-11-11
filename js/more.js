@@ -38,16 +38,16 @@
      ------------------------------------------------------------------ */
   const RING = [
     { vid: 'reel-marotte', kind: 'Reel', who: 'Marotte Industrial' },
-    { img: 'assets/carousel/nabjj-1.webp', kind: 'Carousel', who: 'North Andover Jiu-Jitsu' },
+    { img: 'assets/img/bc-mi-hydrant-wrench.webp', kind: 'Photo', who: 'Marotte Industrial' },
     { vid: 'reel-fight', kind: 'Reel', who: 'Fight night recap' },
-    { img: 'assets/carousel/marotte-1.webp', kind: 'Carousel', who: 'Marotte Industrial' },
+    { img: 'assets/img/cs-bkfc-inside.webp', kind: 'Photo', who: 'BKFC' },
     { vid: 'reel-duel', kind: 'Reel', who: 'Duel Arena arrivals' },
-    { img: 'assets/carousel/broadway-1.webp', kind: 'Carousel', who: 'Broadway Jiu-Jitsu' },
+    { img: 'assets/img/ath-connor-barry.webp', kind: 'Photo', who: 'Northeast Fight Promotion' },
     { vid: 'reel-lbh', kind: 'Reel', who: 'Long Barn Hay' },
     { vid: 'reel-realestate', kind: 'Reel', who: 'Lucci Witte Team' },
-    { img: 'assets/carousel/marotte-2.webp', kind: 'Carousel', who: 'Marotte Industrial' },
-    { img: 'assets/carousel/nabjj-2.webp', kind: 'Carousel', who: 'North Andover Jiu-Jitsu' },
-    { img: 'assets/carousel/broadway-2.webp', kind: 'Carousel', who: 'Broadway Jiu-Jitsu' },
+    { img: 'assets/img/bc-lbh-cowboy-portrait.webp', kind: 'Photo', who: 'Long Barn Hay' },
+    { img: 'assets/img/wc-headshot-2.webp', kind: 'Photo', who: 'Professional headshots' },
+    { img: 'assets/img/cs-cz-champ.webp', kind: 'Photo', who: 'Combat Zone MMA' },
     { vid: 'reel-cz', kind: 'Reel', who: 'Combat Zone MMA' },
   ];
 
@@ -109,7 +109,7 @@
   }
 
   /* ==================================================================
-     THE RING: finished reels and carousels on a wheel you can turn
+     THE RING: finished reels and photos on a wheel you can turn
      ================================================================== */
   const ring = $('#ring'), rspin = $('#ringSpin');
   let rcards = [], RR = 0, ang = 0, vel = 0, rd = null, lastTouch = 0, ringSeen = false;
